@@ -1,16 +1,18 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LoginPage from './pages/LoginPage';
+import DashboardPage from './pages/DashboardPage';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div className="App">
-      <h1>Vite + React + TypeScript</h1>
-      <button onClick={() => setCount(count + 1)}>
-        Count is {count}
-      </button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/GUI-mini-erp/" element={<LoginPage />} />
+        <Route path="/dashboard/" element={<DashboardPage />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
-export default App
+export default App;

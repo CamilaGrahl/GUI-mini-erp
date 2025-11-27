@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+<<<<<<< HEAD
 import type { Product } from '../types/types';
 import { productosAPI } from '../services/productosAPI';
 import Navbar from './Navbar';
@@ -63,8 +64,45 @@ export default function Dashboard() {
                 onClose={closeCreateModal}
                 onCreated={handleProductCreated}
             />
+=======
+import { Product } from '../types/types';
+import { productosAPI } from '../services/productosAPI';
+import ProductsTable from './ProductsTable';
+
+const Dashboard = () => {
+    const [productos, setProductos] = useState<Product[] | null>(null);
+    const [loading, setLoading] = useState(true);
+    const isMounted = useRef(true);
+
+    useEffect(() => {
+        isMounted.current = true;
+
+        productosAPI.getAll()
+            .then((res: any) => {
+                if (!isMounted.current) return;
+                const list: Product[] = Array.isArray(res)
+                    ? res
+                    : (res && (res.products ?? res.data ?? []));
+                setProductos(list);
+            })
+            .catch((err: any) => { console.error(err); if (isMounted.current) setProductos([]); })
+            .finally(() => { if (isMounted.current) setLoading(false); });
+
+        return () => { isMounted.current = false; };
+    }, []);
+
+    if (loading) return <div>Cargando...</div>;
+
+    return (
+        <div>
+            <ProductsTable productos={productos || []} />
+>>>>>>> a57f6872f16839d0acbf47bf10a78d18b272e458
         </div>
     );
 };
 
+<<<<<<< HEAD
 //{"name": "Product Test", "description": "Ver documentación", "category": "null", "price": "199.99", "stock_quantity": "10", "is_active": "true"}
+=======
+export default Dashboard;
+>>>>>>> a57f6872f16839d0acbf47bf10a78d18b272e458

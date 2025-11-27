@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
@@ -28,13 +27,3 @@ export default function Navbar() {
         </div>
     );
 };
-=======
-const Navbar = () => (
-    <nav className="navbar">
-        <h1>PRODUCTS</h1>
-        <span id="username"></span>
-        <a href="/logout">Cerrar Sesión</a>
-    </nav>
-);
-export default Navbar;
->>>>>>> a57f6872f16839d0acbf47bf10a78d18b272e458

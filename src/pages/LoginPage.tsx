@@ -7,7 +7,7 @@ export default function LoginPage() {
     
     const handleLoginSuccess = (data: LoginResponse) => {
         console.log("Usuario logeado: ", data);
-        navigate('/dashboard/');
+        navigate('/dashboard/productos/');
     };
 
     return (

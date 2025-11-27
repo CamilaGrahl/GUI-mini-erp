@@ -9,7 +9,7 @@ export const productosAPI = {
     },
 
     getOne: async (productId: number): Promise<Product> => {
-        const response = await api.get(`${API_CONFIG.ENDPOINTS.PRODUCTS}/${productId}/`);
+        const response = await api.get(`${API_CONFIG.ENDPOINTS.PRODUCTS}${productId}/`);
         return response.data;
     },
 
@@ -19,12 +19,12 @@ export const productosAPI = {
     },
 
     update: async (productId: number, productData: Partial<Product>): Promise<Product> => {
-        const response = await api.put(`${API_CONFIG.ENDPOINTS.PRODUCTS}/${productId}/`, productData);
+        const response = await api.put(`${API_CONFIG.ENDPOINTS.PRODUCTS}${productId}/`, productData);
         return response.data;
     },
 
     delete: async (productId: number): Promise<Product> => {
-        const response = await api.delete(`${API_CONFIG.ENDPOINTS.PRODUCTS}/${productId}/`);
+        const response = await api.delete(`${API_CONFIG.ENDPOINTS.PRODUCTS}${productId}/`);
         return response.data;
     }
 }

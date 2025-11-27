@@ -20,7 +20,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
         try {
             const response = await authAPI.login(usuario, password);
             localStorage.setItem('TOKEN', response.access_token);
-            localStorage.setItem('USER', JSON.stringify(usuario));
+            localStorage.setItem('USER', JSON.stringify(response.user));
 
             if (onLoginSuccess) {
                 onLoginSuccess(response);

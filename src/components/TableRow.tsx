@@ -2,7 +2,6 @@ import { Product } from '../types/types';
 
 interface TableRowProps {
     data: Product;
-<<<<<<< HEAD
     onDelete: (id: number) => void;
 }
 
@@ -21,17 +20,3 @@ export default function TableRow({ data, onDelete }: TableRowProps) {
         </tr>
     );
 }
-=======
-}
-
-const TableRow = ({ data }: TableRowProps) => (
-    <tr>
-        <td>{data.id}</td>
-        <td>{data.name}</td>
-        <td>{data.price}</td>
-        <td>{data.stock_quantity}</td>
-        <td><button>edit</button> <button>delete</button></td>
-    </tr>
-);
-export default TableRow;
->>>>>>> a57f6872f16839d0acbf47bf10a78d18b272e458

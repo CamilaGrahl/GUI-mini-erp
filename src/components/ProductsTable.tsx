@@ -3,7 +3,6 @@ import TableRow from './TableRow';
 
 interface ProductsTableProps {
     productos: Product[];
-<<<<<<< HEAD
     onAddProduct: () => void;
     onDelete: (id: number) => void;
 }
@@ -51,31 +50,3 @@ export default function ProductsTable({ productos, onAddProduct, onDelete }: Pro
         </div>
     );
 }
-=======
-}
-
-const ProductsTable = ({ productos }: ProductsTableProps) => (
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {
-                (productos) ?
-                    productos.map((p) => (
-                        <TableRow key={p.id} data={p} />
-                    ))
-                    : <td>No products yet</td>
-            }
-        </tbody>
-    </table>
-)
-
-export default ProductsTable;
->>>>>>> a57f6872f16839d0acbf47bf10a78d18b272e458

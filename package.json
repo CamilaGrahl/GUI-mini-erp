@@ -1,8 +1,9 @@
 {
-  "name": "gui-mini-erp",
+  "name": "GUI-mini-erp",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://camilagrahl.github.io/GUI-mini-erp/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

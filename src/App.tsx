@@ -1,6 +1,7 @@
-import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
+import ReportPage from "./pages/ReportPage";
 
 function App() {
 
@@ -10,6 +11,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard/productos" element={<DashboardPage />} />
+        <Route path="/dashboard/reports" element={<ReportPage />} />
       </Routes>
     </BrowserRouter>
   )

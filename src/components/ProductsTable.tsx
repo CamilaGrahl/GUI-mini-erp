@@ -4,10 +4,11 @@ import TableRow from './TableRow';
 interface ProductsTableProps {
     productos: Product[];
     onAddProduct: () => void;
+    onEditProduct: (id: number) => void;
     onDelete: (id: number) => void;
 }
 
-export default function ProductsTable({ productos, onAddProduct, onDelete }: ProductsTableProps) {
+export default function ProductsTable({ productos, onAddProduct, onDelete, onEditProduct }: ProductsTableProps) {
 
     return (
         <div className="mt-8 max-w-7xl mx-auto">
@@ -33,6 +34,7 @@ export default function ProductsTable({ productos, onAddProduct, onDelete }: Pro
                                         key={p.id}
                                         data={p}
                                         onDelete={onDelete}
+                                        onEdit={onEditProduct}
                                     />
                                 ))
                             ) : (

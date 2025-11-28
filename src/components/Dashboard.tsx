@@ -86,7 +86,6 @@ export default function Dashboard() {
                 onClose={closeCreateModal}
                 onCreated={handleProductCreated}
             />
-
             <EditProductModal
                 isOpen={isEditModalOpen}
                 onClose={closeEditModal}

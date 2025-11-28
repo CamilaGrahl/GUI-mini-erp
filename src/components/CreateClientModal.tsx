@@ -1,44 +1,44 @@
-import { useState } from "react";
-import { productosAPI } from "../services/productosAPI";
-import type { Product } from "../types/types";
+import { useEffect, useState } from "react";
+import { clientesAPI } from "../services/clientesAPI";
+import type { Client } from "../types/types";
 
 interface Props {
     isOpen: boolean;
     onClose: () => void;
-    onCreated?: (p: Product) => void;
+    onCreated?: (p: Client) => void;
 }
 
-export default function CreateProductModal({ isOpen, onClose, onCreated }: Props) {
+export default function CreateClientModal({ isOpen, onClose, onCreated }: Props) {
     const [formData, setFormData] = useState({
         name: "",
-        description: "",
-        price: "",
-        stock_quantity: 0
+        email: "",
+        phone: "",
+        address: "",
     })
 
     if (!isOpen) return null; //Si no está abierto el modal, no renderizamos
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Nuevo Producto: ", formData);
+        console.log("Nuevo Cliente: ", formData);
         try {
-            console.log("Enviando producto a la API...", formData);
-            const nuevoProducto = await productosAPI.create(formData);
-            console.log("Producto creado correctamente:", nuevoProducto);
+            console.log("Enviando cliente a la API...", formData);
+            const nuevoCliente = await clientesAPI.create(formData);
+            console.log("Cliente creado correctamente:", nuevoCliente);
 
-            if (onCreated) onCreated(nuevoProducto);
+            if (onCreated) onCreated(nuevoCliente);
             onClose();
 
             setFormData({
                 name: "",
-                description: "",
-                price: "",
-                stock_quantity: 0
+                email: "",
+                phone: "",
+                address: "",
             });
 
         } catch (error) {
-            console.error("Error al crear producto:", error);
-            alert("No se pudo crear el producto");
+            console.error("Error al crear cliente:", error);
+            alert("No se pudo crear el cliente");
         }
         onClose();
     }
@@ -46,7 +46,7 @@ export default function CreateProductModal({ isOpen, onClose, onCreated }: Props
     return(
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
             <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6">
-                <h2 className="text-xl font-bold mb-4">Añadir Producto</h2>
+                <h2 className="text-xl font-bold mb-4">Añadir Cliente</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <label className="block">
                         <span className="text-gray-700">Nombre</span>
@@ -59,38 +59,37 @@ export default function CreateProductModal({ isOpen, onClose, onCreated }: Props
                         />
                     </label>
                     <label className="block">
-                        <span className="text-gray-700">Descripción</span>
-                        <textarea
-                            rows={3}
+                        <span className="text-gray-700">Email</span>
+                        <input
+                            type="email"
+                            required
                             className="mt-1 w-full border rounded p-2"
-                            value={formData.description}
-                            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         />
                     </label>
                     <label className="block">
-                        <span className="text-gray-700">Precio</span>
+                        <span className="text-gray-700">Teléfono</span>
                         <input
-                            type="number"
+                            type="text"
                             required
                             className="mt-1 w-full border rounded p-2"
-                            value={formData.price}
-                            onChange={(e) => setFormData({ ...formData, price: ((e.target.value).toString()) })}
+                            value={formData.phone}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         />
                     </label>
                     <label className="block">
-                        <span className="text-gray-700">Cantidad</span>
+                        <span className="text-gray-700">Dirección</span>
                         <input
-                            type="number"
-                            min={0}
-                            max={99}
+                            type="text"
                             required
                             className="mt-1 w-full border rounded p-2"
-                            value={formData.stock_quantity}
-                            onChange={(e) => setFormData({ ...formData, stock_quantity: Number(e.target.value) })}
+                            value={formData.address}
+                            onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                         />
                     </label>
                     <div className="flex justify-end gap-3 mt-4">
-                        <button type="button" onClick={() => {setFormData({name:"",description:"",price:"",stock_quantity:0});onClose();}} className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancelar</button>
+                        <button type="button" onClick={() => {setFormData({name:"",email:"",phone:"",address:""});onClose();}} className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancelar</button>
                         <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Crear</button>
                     </div>
                 </form>

@@ -1,57 +1,57 @@
 import { useState, useEffect } from "react";
-import { productosAPI } from "../services/productosAPI";
-import type { Product } from "../types/types";
+import { clientesAPI } from "../services/clientesAPI"; 
+import type { Client } from "../types/types";
 
 interface Props {
     isOpen: boolean;
     onClose: () => void;
-    product: Product | null;
-    onUpdate?: (p: Product) => void;
+    client: Client | null;
+    onUpdate?: (c: Client) => void;
 }
 
-export default function EditProductModal({ isOpen, onClose, product, onUpdate }: Props) {
+export default function EditClientModal({ isOpen, onClose, client, onUpdate }: Props) {
     const [formData, setFormData] = useState({
         id: -1,
         name: "",
-        description: "",
-        price: "",
-        stock_quantity: 0
+        email: "",
+        phone: "",
+        address: ""
     })
 
     useEffect(() => {
-        if (product) {
+        if (client) {
             setFormData({
-                id: product.id,
-                name: product.name,
-                description: product.description || "",
-                price: product.price.toString(),
-                stock_quantity: product.stock_quantity
+                id: client.id,
+                name: client.name,
+                email: client.email || "",
+                phone: client.phone,
+                address: client.address
             });
         }
-    }, [product]);
-    if (!isOpen || !product) return null;
+    }, [client]);
+    if (!isOpen || !client) return null;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const updateProductBody = {
+        const updateClientBody = {
             name: formData.name,
-            description: formData.description,
-            price: formData.price,
-            stock_quantity: formData.stock_quantity
+            email: formData.email,
+            phone: formData.phone,
+            address: formData.address
         }
 
         try {
-            console.log(`Enviando actualizacion para id: ${formData.id} a la Api, con cuerpo:`, updateProductBody);
-            const updatedProduct = await productosAPI.update(formData.id, updateProductBody)
-            console.log("Producto actualizado correctamente:", updatedProduct);
+            console.log(`Enviando actualizacion para id: ${formData.id} a la Api, con cuerpo:`, updateClientBody);
+            const updatedClient = await clientesAPI.update(formData.id, updateClientBody)
+            console.log("Cliente actualizado correctamente:", updatedClient);
 
-            if (onUpdate) onUpdate(updatedProduct);
+            if (onUpdate) onUpdate(updatedClient);
             onClose();
 
         } catch (error) {
-            console.error("Error al editar producto:", error);
-            alert("No se pudo actualizar el producto");
+            console.error("Error al editar cliente:", error);
+            alert("No se pudo actualizar el cliente");
         }
         onClose();
     }
@@ -59,7 +59,7 @@ export default function EditProductModal({ isOpen, onClose, product, onUpdate }:
     return (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
             <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6">
-                <h2 className="text-xl font-bold mb-4">Editar Producto</h2>
+                <h2 className="text-xl font-bold mb-4">Editar Cliente</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <label className="block">
                         <span className="text-gray-700">Nombre</span>
@@ -72,34 +72,33 @@ export default function EditProductModal({ isOpen, onClose, product, onUpdate }:
                         />
                     </label>
                     <label className="block">
-                        <span className="text-gray-700">Descripción</span>
-                        <textarea
-                            rows={3}
+                        <span className="text-gray-700">Email</span>
+                        <input
+                            type="email"
+                            required
                             className="mt-1 w-full border rounded p-2"
-                            value={formData.description}
-                            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         />
                     </label>
                     <label className="block">
-                        <span className="text-gray-700">Precio</span>
+                        <span className="text-gray-700">Teléfono</span>
                         <input
-                            type="number"
+                            type="text"
                             required
                             className="mt-1 w-full border rounded p-2"
-                            value={formData.price}
-                            onChange={(e) => setFormData({ ...formData, price: ((e.target.value).toString()) })}
+                            value={formData.phone}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         />
                     </label>
                     <label className="block">
-                        <span className="text-gray-700">Cantidad</span>
+                        <span className="text-gray-700">Dirección</span>
                         <input
-                            type="number"
-                            min={0}
-                            max={99}
+                            type="text"
                             required
                             className="mt-1 w-full border rounded p-2"
-                            value={formData.stock_quantity}
-                            onChange={(e) => setFormData({ ...formData, stock_quantity: Number(e.target.value) })}
+                            value={formData.address}
+                            onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                         />
                     </label>
                     <div className="flex justify-end gap-3 mt-4">

@@ -31,6 +31,13 @@ export default function Dashboard() {
         getProducts();
     }, []);
 
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-full">
+                <span>Cargando productos...</span>
+            </div>
+        );
+    }
     const openCreateModal = () => setCreateModalOpen(true);
     const closeCreateModal = () => setCreateModalOpen(false);
 

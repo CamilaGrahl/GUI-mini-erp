@@ -14,6 +14,13 @@ export default function ClientBoard() {
     const [isEditModalOpen, setEditModalOpen] = useState(false);
     const [clientToEdit, setClientToEdit] = useState<Client | null>(null);
 
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-full">
+                <span>Cargando clientes...</span>
+            </div>
+        );
+    }
     useEffect(() => {
         const getClients = async () => {
             try {
@@ -74,7 +81,7 @@ export default function ClientBoard() {
 
     return (
         <div>
-            <Navbar/>
+            <Navbar />
             <ClientsTable
                 clientes={clientes}
                 onAddClient={openCreateModal}

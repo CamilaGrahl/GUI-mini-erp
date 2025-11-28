@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { clientesAPI } from "../services/clientesAPI";
 import type { Client } from "../types/types";
 
@@ -43,7 +43,7 @@ export default function CreateClientModal({ isOpen, onClose, onCreated }: Props)
         onClose();
     }
 
-    return(
+    return (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
             <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6">
                 <h2 className="text-xl font-bold mb-4">Añadir Cliente</h2>
@@ -89,7 +89,7 @@ export default function CreateClientModal({ isOpen, onClose, onCreated }: Props)
                         />
                     </label>
                     <div className="flex justify-end gap-3 mt-4">
-                        <button type="button" onClick={() => {setFormData({name:"",email:"",phone:"",address:""});onClose();}} className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancelar</button>
+                        <button type="button" onClick={() => { setFormData({ name: "", email: "", phone: "", address: "" }); onClose(); }} className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancelar</button>
                         <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Crear</button>
                     </div>
                 </form>

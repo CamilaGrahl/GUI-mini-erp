@@ -63,21 +63,6 @@ export interface ProductFormInput {
     stock_quantity: number;
 }
 
-
-export interface LoginFormInput {
-    email: string;
-    password: string;
-}
-
-export interface SessionStatus {
-    isLoggedIn: boolean;
-    user: {
-        email: string;
-        password: string;
-    } | null;
-    token: string | null;
-}
-
 export interface Client {
     id: number;
     name: string;
@@ -95,4 +80,14 @@ export interface ClientListResponse {
     next: string | null;
     previous: string | null;
     results: Client[];
+}
+
+export type Notification = {
+    id: number;
+    message: string;
+    type: "success" | "error";
+}
+
+export type NotificationContextType = {
+    showNotification: (msg: string, type?: Notification["type"]) => void;
 }

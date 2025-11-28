@@ -5,24 +5,33 @@ import Navbar from './Navbar';
 import ClientsTable from './ClientsTable';
 import CreateClientModal from './CreateClientModal';
 import EditClientModal from './EditClientModal';
+import { useNotification } from './NotificationContext';
 
 export default function ClientBoard() {
     const [clientes, setClientes] = useState<Client[]>([]);
     const [loading, setLoading] = useState(true);
     const isMounted = useRef(true);
+    const cargadoRef = useRef(false);
     const [isCreateModalOpen, setCreateModalOpen] = useState(false);
     const [isEditModalOpen, setEditModalOpen] = useState(false);
     const [clientToEdit, setClientToEdit] = useState<Client | null>(null);
+    const { showNotification } = useNotification();
 
     useEffect(() => {
+        if (cargadoRef.current) return;
+        cargadoRef.current = true;
+        
         const getClients = async () => {
             try {
                 const data = await clientesAPI.getAll();
                 if (isMounted.current) {
-                    setClientes(data.results);
+                    const ordenados = [...data.results].sort((a, b) => b.id - a.id);
+                    setClientes(ordenados);
+                    showNotification("Clientes cargados correctamente", "success");
                 }
             } catch (error) {
                 console.log("Error al obtener clientes de la API", error);
+                showNotification("Error al cargar clientes", "error");
             } finally {
                 setLoading(false);
             }
@@ -78,10 +87,11 @@ export default function ClientBoard() {
             await clientesAPI.delete(id);
             console.log("Cliente eliminado: ", clientes.find(c => c.id === id));
             setClientes(prev => prev.filter(c => c.id !== id));
+            showNotification("Cliente eliminado correctamente", "success");
 
         } catch (error) {
             console.error("Error eliminando cliente:", error);
-            alert("Error eliminando el cliente");
+            showNotification("Error al eliminar el cliente", "error");
         }
     }
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { productosAPI } from "../services/productosAPI";
 import type { Product } from "../types/types";
+import { useNotification } from "./NotificationContext";
 
 interface Props {
     isOpen: boolean;
@@ -10,6 +11,8 @@ interface Props {
 }
 
 export default function EditProductModal({ isOpen, onClose, product, onUpdate }: Props) {
+    const { showNotification } = useNotification();
+    
     const [formData, setFormData] = useState({
         id: -1,
         name: "",
@@ -45,13 +48,14 @@ export default function EditProductModal({ isOpen, onClose, product, onUpdate }:
             console.log(`Enviando actualizacion para id: ${formData.id} a la Api, con cuerpo:`, updateProductBody);
             const updatedProduct = await productosAPI.update(formData.id, updateProductBody)
             console.log("Producto actualizado correctamente:", updatedProduct);
+            showNotification("Producto actualizado correctamente", "success");
 
             if (onUpdate) onUpdate(updatedProduct);
             onClose();
 
         } catch (error) {
             console.error("Error al editar producto:", error);
-            alert("No se pudo actualizar el producto");
+            showNotification("No se pudo actualizar el producto", "error");
         }
         onClose();
     }

@@ -1,5 +1,7 @@
 import MichiGif from '../img/giphy.gif';
+
 export default function Reports() {
+    
     return (
         <div className="flex flex-col items-center bg-gradient-to-br from-purple-300 to-pink-300 min-h-[calc(100vh-73px)]">
             <span className="block text-sm font-medium text-gray-700 my-5">
@@ -22,5 +24,5 @@ export default function Reports() {
                 </p>
             </div>
         </div>
-    )
+    );
 }

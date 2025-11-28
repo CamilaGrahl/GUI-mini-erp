@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { clientesAPI } from "../services/clientesAPI"; 
 import type { Client } from "../types/types";
+import { useNotification } from "./NotificationContext";
 
 interface Props {
     isOpen: boolean;
@@ -10,6 +11,8 @@ interface Props {
 }
 
 export default function EditClientModal({ isOpen, onClose, client, onUpdate }: Props) {
+    const { showNotification } = useNotification();
+    
     const [formData, setFormData] = useState({
         id: -1,
         name: "",
@@ -45,13 +48,14 @@ export default function EditClientModal({ isOpen, onClose, client, onUpdate }: P
             console.log(`Enviando actualizacion para id: ${formData.id} a la Api, con cuerpo:`, updateClientBody);
             const updatedClient = await clientesAPI.update(formData.id, updateClientBody)
             console.log("Cliente actualizado correctamente:", updatedClient);
+            showNotification("Cliente actualizado correctamente", "success");
 
             if (onUpdate) onUpdate(updatedClient);
             onClose();
 
         } catch (error) {
             console.error("Error al editar cliente:", error);
-            alert("No se pudo actualizar el cliente");
+            showNotification("No se pudo actualizar el cliente", "error");
         }
         onClose();
     }

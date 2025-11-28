@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useNotification } from "./NotificationContext";
 
 export default function Navbar() {
     const navigate = useNavigate();
+    const { showNotification } = useNotification();
 
     const user = JSON.parse(localStorage.getItem('USER') || "null");
     const firstName = user?.first_name || "Usuario";
@@ -10,6 +12,7 @@ export default function Navbar() {
         localStorage.removeItem('TOKEN');
         localStorage.removeItem('USER');
         navigate('/login/');
+        showNotification("Sesión cerrada", "error");
     }
 
     const goToProducts = () => {

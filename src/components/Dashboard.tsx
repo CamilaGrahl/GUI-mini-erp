@@ -5,24 +5,33 @@ import Navbar from './Navbar';
 import ProductsTable from './ProductsTable';
 import CreateProductModal from './CreateProductModal';
 import EditProductModal from './EditProductModal';
+import { useNotification } from './NotificationContext';
 
 export default function Dashboard() {
     const [productos, setProductos] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
     const isMounted = useRef(true);
+    const cargadoRef = useRef(false);
     const [isCreateModalOpen, setCreateModalOpen] = useState(false);
     const [isEditModalOpen, setEditModalOpen] = useState(false);
     const [productToEdit, setProductToEdit] = useState<Product | null>(null);
+    const { showNotification } = useNotification();
 
     useEffect(() => {
+        if (cargadoRef.current) return;
+        cargadoRef.current = true;
+
         const getProducts = async () => {
             try {
                 const data = await productosAPI.getAll();
                 if (isMounted.current) {
-                    setProductos(data.results);
+                    const ordenados = [...data.results].sort((a, b) => b.id - a.id);
+                    setProductos(ordenados);
+                    showNotification("Productos cargados correctamente", "success");
                 }
             } catch (error) {
                 console.log("Error al obtener productos de la API", error);
+                showNotification("Error al cargar productos", "error");
             } finally {
                 setLoading(false);
             }
@@ -78,10 +87,11 @@ export default function Dashboard() {
             await productosAPI.delete(id);
             console.log("Producto eliminado: ", productos.find(p => p.id === id));
             setProductos(prev => prev.filter(p => p.id !== id));
+            showNotification("Producto eliminado correctamente", "success");
 
         } catch (error) {
             console.error("Error eliminando producto:", error);
-            alert("Error eliminando el producto");
+            showNotification("Error al eliminar el producto", "error");
         }
     }
 

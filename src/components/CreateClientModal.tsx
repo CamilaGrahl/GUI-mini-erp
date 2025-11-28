@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { clientesAPI } from "../services/clientesAPI";
 import type { Client } from "../types/types";
+import { useNotification } from "./NotificationContext";
 
 interface Props {
     isOpen: boolean;
@@ -9,6 +10,8 @@ interface Props {
 }
 
 export default function CreateClientModal({ isOpen, onClose, onCreated }: Props) {
+    const { showNotification } = useNotification();
+    
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -25,6 +28,7 @@ export default function CreateClientModal({ isOpen, onClose, onCreated }: Props)
             console.log("Enviando cliente a la API...", formData);
             const nuevoCliente = await clientesAPI.create(formData);
             console.log("Cliente creado correctamente:", nuevoCliente);
+            showNotification("Cliente creado correctamente", "success");
 
             if (onCreated) onCreated(nuevoCliente);
             onClose();
@@ -38,7 +42,7 @@ export default function CreateClientModal({ isOpen, onClose, onCreated }: Props)
 
         } catch (error) {
             console.error("Error al crear cliente:", error);
-            alert("No se pudo crear el cliente");
+            showNotification("No se pudo crear el cliente", "error");
         }
         onClose();
     }

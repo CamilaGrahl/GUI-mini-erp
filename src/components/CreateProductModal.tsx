@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { productosAPI } from "../services/productosAPI";
 import type { Product } from "../types/types";
+import { useNotification } from "./NotificationContext";
 
 interface Props {
     isOpen: boolean;
@@ -9,6 +10,8 @@ interface Props {
 }
 
 export default function CreateProductModal({ isOpen, onClose, onCreated }: Props) {
+    const { showNotification } = useNotification();
+    
     const [formData, setFormData] = useState({
         name: "",
         description: "",
@@ -25,6 +28,7 @@ export default function CreateProductModal({ isOpen, onClose, onCreated }: Props
             console.log("Enviando producto a la API...", formData);
             const nuevoProducto = await productosAPI.create(formData);
             console.log("Producto creado correctamente:", nuevoProducto);
+            showNotification("Producto creado correctamente", "success");
 
             if (onCreated) onCreated(nuevoProducto);
             onClose();
@@ -38,7 +42,7 @@ export default function CreateProductModal({ isOpen, onClose, onCreated }: Props
 
         } catch (error) {
             console.error("Error al crear producto:", error);
-            alert("No se pudo crear el producto");
+            showNotification("No se pudo crear el producto", "error");
         }
         onClose();
     }

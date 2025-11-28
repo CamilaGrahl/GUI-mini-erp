@@ -7,13 +7,13 @@ import ClientsPage from "./pages/ClientsPage";
 function App() {
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/GUI-mini-erp">
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard/productos" element={<DashboardPage />} />
         <Route path="/dashboard/clientes" element={<ClientsPage />} />
-        <Route path="/dashboard/reports" element={<ReportPage />} />
+        <Route path="/dashboard/reportes" element={<ReportPage />} />
       </Routes>
     </BrowserRouter>
   )

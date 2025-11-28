@@ -18,7 +18,7 @@ export default function Reports() {
                 </h2>
 
                 <p className="text-gray-600 text-sm mt-1">
-                    El michi full-stack developer se está esforzando por tener la pagina funcionando lo antes posible 🐱‍💻
+                    El michi full-stack developer se está esforzando por tener la página funcionando lo antes posible 🐱‍💻
                 </p>
             </div>
         </div>

@@ -14,7 +14,7 @@ export default function ClientsTable({ clientes, onAddClient, onDelete, onEditCl
         <div className="mt-8 max-w-7xl mx-auto">
             <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
                 <div className="px-6 py-4 bg-gray-50 border-b">
-                    <h3 className="text-lg font-semibold text-gray-900">Lista de Clientes</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">📊 Lista de Clientes</h3>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full">

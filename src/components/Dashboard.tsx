@@ -33,11 +33,17 @@ export default function Dashboard() {
 
     if (loading) {
         return (
-            <div className="flex justify-center items-center h-full">
-                <span>Cargando productos...</span>
+            <div>
+                <Navbar />
+                <div className="mt-8 max-w-7xl mx-auto">
+                    <div className="flex justify-center items-center h-full font-bold bg-white rounded-lg shadow-md overflow-hidden mb-8">
+                        <span>Cargando productos...</span>
+                    </div>
+                </div>
             </div>
         );
     }
+    
     const openCreateModal = () => setCreateModalOpen(true);
     const closeCreateModal = () => setCreateModalOpen(false);
 

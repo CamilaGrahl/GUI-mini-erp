@@ -14,13 +14,6 @@ export default function ClientBoard() {
     const [isEditModalOpen, setEditModalOpen] = useState(false);
     const [clientToEdit, setClientToEdit] = useState<Client | null>(null);
 
-    if (loading) {
-        return (
-            <div className="flex justify-center items-center h-full">
-                <span>Cargando clientes...</span>
-            </div>
-        );
-    }
     useEffect(() => {
         const getClients = async () => {
             try {
@@ -37,6 +30,19 @@ export default function ClientBoard() {
 
         getClients();
     }, []);
+
+    if (loading) {
+        return (
+            <div>
+                <Navbar />
+                <div className="mt-8 max-w-7xl mx-auto">
+                    <div className="flex justify-center items-center h-full font-bold bg-white rounded-lg shadow-md overflow-hidden mb-8">
+                        <span>Cargando clientes...</span>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     const openCreateModal = () => setCreateModalOpen(true);
     const closeCreateModal = () => setCreateModalOpen(false);

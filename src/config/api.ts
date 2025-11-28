@@ -2,7 +2,8 @@ export const API_CONFIG = {
     BASE_URL: "https://minierp.rbnetto.dev",
     ENDPOINTS: {
         LOGIN: "/api/users/users/login/",
-        PRODUCTS: "/api/inventory/products/"
+        PRODUCTS: "/api/inventory/products/",
+        CLIENTS: "/api/sales/customers/"
     }
 } as const;
 

@@ -77,3 +77,22 @@ export interface SessionStatus {
     } | null;
     token: string | null;
 }
+
+export interface Client {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+    is_active: boolean;
+    orders_count: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface ClientListResponse {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: Client[];
+}
